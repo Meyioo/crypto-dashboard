@@ -2,7 +2,66 @@
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.8.
 
-## Development server
+## 🧑‍💻 Core Features
+
+- [ ] Display a **table or cards** showing:
+
+  - [ ] Coin Name
+  - [ ] Price
+  - [ ] 24h Price Change
+  - [ ] Coin Symbol
+
+- [ ] Implement **auto-refresh** every 10 seconds.
+
+- [ ] Add a **sorting feature** for:
+
+  - [ ] Price
+  - [ ] Name
+  - [ ] 24h Change
+
+- [ ] _(Optional)_ Display a **chart (sparkline)** for each coin.
+
+## 💡 Bonus Features
+
+### Error and Connection Handling
+
+- [ ] Show an **offline notice** when network connection is interrupted.
+- [ ] Handle **API errors gracefully** and notify the user.
+
+### UI and UX
+
+- [ ] Create a **responsive layout**.
+- [ ] Add a **visual indicator** for auto-refresh (page stays interactive).
+
+### URL State Sharing
+
+- [ ] Persist **sort state in the URL**:
+
+  - [ ] Survives page refresh.
+  - [ ] Can be shared via URL.
+
+- [ ] Implement a **coin detail view**:
+  - [ ] Navigable via URL.
+  - [ ] URL reflects selected coin.
+
+### Deployment
+
+- [ ] Deploy the app so it's **accessible via the web** (not just on localhost).
+
+## 🔐 Authentication (Bonus)
+
+- [ ] Implement **authentication** with a web-friendly method:
+
+  - [ ] Login screen.
+  - [ ] Protect content from unauthorized access.
+  - [ ] No user database required.
+  - [ ] Allow a single valid user or simple login logic.
+
+- [ ] Store **login session**:
+  - [ ] Persist across visits.
+  - [ ] Allow expiration without auto-renewal.
+
+# Development server
 
 To start a local development server, run:
 
