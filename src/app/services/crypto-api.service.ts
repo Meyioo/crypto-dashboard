@@ -21,7 +21,7 @@ export class CryptoApiService {
   };
 
   public getCryptoData(): Observable<CoinData[]> {
-    return interval(10000).pipe(
+    return interval(10000000).pipe(
       switchMap(() =>
         this.httpClient.get<CoinData[]>(
           'https://api.coingecko.com/api/v3/coins/markets',
