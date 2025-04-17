@@ -46,7 +46,7 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 
 ### Deployment
 
-- [ ] Deploy the app so it's **accessible via the web** (not just on localhost).
+- [x] Deploy the app so it's **accessible via the web** (not just on localhost).
 
 ## 🔐 Authentication (Bonus)
 
