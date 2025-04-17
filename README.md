@@ -11,7 +11,7 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
   - [ ] 24h Price Change
   - [ ] Coin Symbol
 
-- [ ] Implement **auto-refresh** every 10 seconds.
+- [x] Implement **auto-refresh** every 10 seconds.
 
 - [ ] Add a **sorting feature** for:
 
