@@ -4,12 +4,12 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 
 ## 🧑‍💻 Core Features
 
-- [ ] Display a **table or cards** showing:
+- [x] Display a **table or cards** showing:
 
-  - [ ] Coin Name
-  - [ ] Price
-  - [ ] 24h Price Change
-  - [ ] Coin Symbol
+  - [x] Coin Name
+  - [x] Price
+  - [x] 24h Price Change
+  - [x] Coin Symbol
 
 - [x] ~~Implement **auto-refresh** every 10 seconds~~.
 

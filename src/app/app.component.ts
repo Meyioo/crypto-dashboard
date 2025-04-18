@@ -1,18 +1,15 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
-import { HeaderComponent } from './core/header/header.component';
-import { CryptoApiService } from './services/crypto-api.service';
+import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [CommonModule, HeaderComponent],
+  imports: [CommonModule, RouterModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
   title = 'crypto-dashboard';
-
-  public readonly cryptoApiService = inject(CryptoApiService);
 
   constructor() {}
 }

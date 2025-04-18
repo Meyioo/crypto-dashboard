@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { interval, Observable, switchMap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { CoinData } from './crypto-api.model';
 
 @Injectable({
@@ -21,16 +21,12 @@ export class CryptoApiService {
   };
 
   public getCryptoData(): Observable<CoinData[]> {
-    return interval(10000000).pipe(
-      switchMap(() =>
-        this.httpClient.get<CoinData[]>(
-          'https://api.coingecko.com/api/v3/coins/markets',
-          {
-            params: this.params,
-            headers: this.headers,
-          }
-        )
-      )
+    return this.httpClient.get<CoinData[]>(
+      'https://api.coingecko.com/api/v3/coins/markets',
+      {
+        params: this.params,
+        headers: this.headers,
+      }
     );
   }
 }
