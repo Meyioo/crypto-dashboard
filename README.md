@@ -52,8 +52,8 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 
 - [ ] Implement **authentication** with a web-friendly method:
 
-  - [ ] Login screen.
-  - [ ] Protect content from unauthorized access.
+  - [x] ~~Login screen.~~
+  - [ ] ~~Protect content from unauthorized access.~~
   - [ ] No user database required.
   - [ ] Allow a single valid user or simple login logic.
 
