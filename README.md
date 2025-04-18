@@ -6,18 +6,18 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 
 - [x] Display a **table or cards** showing:
 
-  - [x] Coin Name
-  - [x] Price
-  - [x] 24h Price Change
-  - [x] Coin Symbol
+  - [x] ~~Coin Name~~
+  - [x] ~~Price~~
+  - [x] ~~24h Price Change~~
+  - [x] ~~Coin Symbol~~
 
 - [x] ~~Implement **auto-refresh** every 10 seconds~~.
 
-- [ ] Add a **sorting feature** for:
+- [x] Add a **sorting feature** for:
 
-  - [ ] Price
-  - [ ] Name
-  - [ ] 24h Change
+  - [x] ~~Price~~
+  - [x] ~~Name~~
+  - [x] ~~24h Change~~
 
 - [ ] _(Optional)_ Display a **chart (sparkline)** for each coin.
 
@@ -35,10 +35,10 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 
 ### URL State Sharing
 
-- [ ] Persist **sort state in the URL**:
+- [x] Persist **sort state in the URL**:
 
-  - [ ] Survives page refresh.
-  - [ ] Can be shared via URL.
+  - [x] Survives page refresh.
+  - [x] Can be shared via URL.
 
 - [ ] Implement a **coin detail view**:
   - [ ] Navigable via URL.
