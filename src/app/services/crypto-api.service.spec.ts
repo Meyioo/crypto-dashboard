@@ -6,7 +6,7 @@ import { CryptoApiService } from './crypto-api.service';
 describe('Service: CryptoApi', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [CryptoApiService]
+      providers: [CryptoApiService],
     });
   });
 

@@ -11,9 +11,8 @@ describe('SparklineChartComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SparklineChartComponent ]
-    })
-    .compileComponents();
+      declarations: [SparklineChartComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

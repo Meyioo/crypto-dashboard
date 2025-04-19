@@ -26,6 +26,11 @@ export class CryptoApiService {
   private readonly cryptoDataUpdated = new BehaviorSubject<boolean>(false);
   public readonly cryptoDataUpdated$ = this.cryptoDataUpdated.asObservable();
 
+  private readonly selectedCoinStore = new BehaviorSubject<CoinData | null>(
+    null,
+  );
+  public readonly selectedCoin$ = this.selectedCoinStore.asObservable();
+
   constructor() {
     this.cryptoData$.subscribe(() => {
       this.cryptoDataUpdated.next(true);
@@ -45,9 +50,17 @@ export class CryptoApiService {
           {
             params: this.params,
             headers: this.headers,
-          }
-        )
-      )
+          },
+        ),
+      ),
     );
+  }
+
+  public selectCoin(coin: CoinData): void {
+    this.selectedCoinStore.next(coin);
+  }
+
+  public clearSelectedCoin(): void {
+    this.selectedCoinStore.next(null);
   }
 }

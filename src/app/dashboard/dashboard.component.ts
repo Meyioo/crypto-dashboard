@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs';
-import { HeaderComponent } from '../core/header/header.component';
+import { CoinData } from '../services/crypto-api.model';
 import { CryptoApiService } from '../services/crypto-api.service';
 import { SparklineChartComponent } from './sparkline-chart/sparkline-chart.component';
 
@@ -11,7 +11,7 @@ import { SparklineChartComponent } from './sparkline-chart/sparkline-chart.compo
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
   standalone: true,
-  imports: [CommonModule, HeaderComponent, SparklineChartComponent],
+  imports: [CommonModule, SparklineChartComponent],
 })
 export class DashboardComponent implements OnInit {
   private readonly cryptoApiService = inject(CryptoApiService);
@@ -57,9 +57,9 @@ export class DashboardComponent implements OnInit {
         return data.sort((a, b) =>
           this.isNameAscending
             ? a.name.localeCompare(b.name)
-            : b.name.localeCompare(a.name)
+            : b.name.localeCompare(a.name),
         );
-      })
+      }),
     );
     if (updateUrl) {
       this.updateQueryParams('name', this.isNameAscending);
@@ -73,9 +73,9 @@ export class DashboardComponent implements OnInit {
         return data.sort((a, b) =>
           this.isPriceAscending
             ? a.current_price - b.current_price
-            : b.current_price - a.current_price
+            : b.current_price - a.current_price,
         );
-      })
+      }),
     );
     if (updateUrl) {
       this.updateQueryParams('price', this.isPriceAscending);
@@ -89,9 +89,9 @@ export class DashboardComponent implements OnInit {
         return data.sort((a, b) =>
           this.is24HourChangeAscending
             ? a.price_change_percentage_24h - b.price_change_percentage_24h
-            : b.price_change_percentage_24h - a.price_change_percentage_24h
+            : b.price_change_percentage_24h - a.price_change_percentage_24h,
         );
-      })
+      }),
     );
     if (updateUrl) {
       this.updateQueryParams('24hChange', this.is24HourChangeAscending);
@@ -110,7 +110,8 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  goToCoinDetails(id: string): void {
-    this.router.navigate(['/coin', id]);
+  goToCoinDetails(coin: CoinData): void {
+    this.cryptoApiService.selectCoin(coin);
+    this.router.navigate(['/coin', coin.id]);
   }
 }

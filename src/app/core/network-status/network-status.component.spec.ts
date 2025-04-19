@@ -11,9 +11,8 @@ describe('NetworkStatusComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NetworkStatusComponent ]
-    })
-    .compileComponents();
+      declarations: [NetworkStatusComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

@@ -11,9 +11,8 @@ describe('CoinDetailComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CoinDetailComponent ]
-    })
-    .compileComponents();
+      declarations: [CoinDetailComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

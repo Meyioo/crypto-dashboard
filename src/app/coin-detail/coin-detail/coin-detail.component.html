@@ -1,3 +1,66 @@
-<p>
-  coin-detail works!
-</p>
+@if (cryptoApiService.selectedCoin$ | async; as coin) {
+  <div class="container mx-auto p-4">
+    <div class="bg-white shadow-md rounded-lg p-6">
+      <!-- Coin Header -->
+      <div class="flex items-center space-x-4">
+        <img
+          src="https://via.placeholder.com/50"
+          alt="Coin Image"
+          class="w-12 h-12 rounded-full"
+        />
+        <div>
+          <h1 class="text-2xl font-bold">
+            {{ coin.name }} ({{ coin.symbol.toUpperCase() }})
+          </h1>
+          <p class="text-gray-500">
+            #{{ coin.market_cap_rank }} Market Cap Rank
+          </p>
+        </div>
+      </div>
+
+      <!-- Coin Stats -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
+        <div class="p-4 bg-gray-100 rounded-lg">
+          <p class="text-sm text-gray-500">Current Price</p>
+          <p class="text-lg font-semibold">
+            {{ coin.current_price | currency }}
+          </p>
+        </div>
+        <div class="p-4 bg-gray-100 rounded-lg">
+          <p class="text-sm text-gray-500">Market Cap</p>
+          <p class="text-lg font-semibold">{{ coin.market_cap | currency }}</p>
+        </div>
+        <div class="p-4 bg-gray-100 rounded-lg">
+          <p class="text-sm text-gray-500">24h High</p>
+          <p class="text-lg font-semibold">{{ coin.high_24h | currency }}</p>
+        </div>
+        <div class="p-4 bg-gray-100 rounded-lg">
+          <p class="text-sm text-gray-500">24h Low</p>
+          <p class="text-lg font-semibold">{{ coin.low_24h | currency }}</p>
+        </div>
+        <div class="p-4 bg-gray-100 rounded-lg">
+          <p class="text-sm text-gray-500">Price Change (24h)</p>
+          <p class="text-lg font-semibold">
+            {{ coin.price_change_percentage_24h | percent }}
+          </p>
+        </div>
+        <div class="p-4 bg-gray-100 rounded-lg">
+          <p class="text-sm text-gray-500">Circulating Supply</p>
+          <p class="text-lg font-semibold">
+            {{ coin.circulating_supply }} {{ coin.symbol.toUpperCase() }}
+          </p>
+        </div>
+      </div>
+
+      <!-- Sparkline -->
+      <div class="mt-6">
+        <h2 class="text-lg font-bold mb-2">7-Day Price Trend</h2>
+        <div class="bg-gray-100 rounded-lg p-4">
+          <app-sparkline-chart
+            [sparklineData]="coin.sparkline_in_7d.price"
+          ></app-sparkline-chart>
+        </div>
+      </div>
+    </div>
+  </div>
+}

@@ -32,17 +32,12 @@ export class SparklineChartComponent implements OnInit {
 
   public chartOptions!: Partial<ChartOptions>;
 
-  constructor() {
+  constructor() {}
+
+  ngOnInit(): void {
     this.chartOptions = {
-      chart: {
-        type: 'line',
-        width: 100,
-        height: 35,
-        sparkline: {
-          enabled: true,
-        },
-      },
       tooltip: {
+        enabled: false,
         fixed: {
           enabled: false,
         },
@@ -51,7 +46,7 @@ export class SparklineChartComponent implements OnInit {
         },
         y: {
           title: {
-            formatter: function (seriesName) {
+            formatter: function () {
               return '';
             },
           },
@@ -60,18 +55,6 @@ export class SparklineChartComponent implements OnInit {
           show: false,
         },
       },
-      series: [
-        {
-          name: 'chart-line-sparkline',
-          data: this.sparklineData,
-        },
-      ],
-    };
-  }
-
-  ngOnInit(): void {
-    this.chartOptions = {
-      ...this.chartOptions,
       series: [
         {
           name: 'chart-line-sparkline',

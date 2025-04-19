@@ -4,7 +4,9 @@
   color: white;
   font-weight: bold;
   border-radius: 8px;
-  animation: pulse 1s, fadeOut 2s forwards;
+  animation:
+    pulse 1s,
+    fadeOut 2s forwards;
 }
 
 @keyframes pulse {
