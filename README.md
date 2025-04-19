@@ -4,7 +4,7 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 
 ## 🧑‍💻 Core Features
 
-- [x] Display a **table or cards** showing:
+- [x] ~~Display a **table or cards** showing:~~
 
   - [x] ~~Coin Name~~
   - [x] ~~Price~~
@@ -13,7 +13,7 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 
 - [x] ~~Implement **auto-refresh** every 10 seconds~~.
 
-- [x] Add a **sorting feature** for:
+- [x] ~~Add a **sorting feature** for:~~
 
   - [x] ~~Price~~
   - [x] ~~Name~~

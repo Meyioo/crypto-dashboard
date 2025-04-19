@@ -18,7 +18,7 @@ export class AuthService {
 
   login(password: string): boolean {
     if (password === this.validPassword) {
-      const expires = new Date().getTime() + this.expirationMinutes * 1000;
+      const expires = new Date().getTime() + this.expirationMinutes * 100000;
       localStorage.setItem(this.storageKey, expires.toString());
       return true;
     }

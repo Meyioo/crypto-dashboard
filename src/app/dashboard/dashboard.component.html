@@ -40,6 +40,12 @@
         >
           Symbol
         </th>
+        <th
+          scope="col"
+          class="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider"
+        >
+          Sparkline (7d)
+        </th>
       </tr>
     </thead>
     <tbody class="bg-white divide-y divide-gray-200">
@@ -49,6 +55,11 @@
         <td class="px-6 py-4 whitespace-nowrap">{{ coin.current_price }}</td>
         <td class="px-6 py-4 whitespace-nowrap">{{ coin.price_change_24h }}</td>
         <td class="px-6 py-4 whitespace-nowrap">{{ coin.symbol }}</td>
+        <td class="px-6 py-4 whitespace-nowrap">
+          <app-sparkline-chart
+            [sparklineData]="coin.sparkline_in_7d.price"
+          ></app-sparkline-chart>
+        </td>
       </tr>
       }
     </tbody>

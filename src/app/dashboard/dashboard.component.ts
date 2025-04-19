@@ -2,15 +2,16 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs';
-import { HeaderComponent } from '../../core/header/header.component';
-import { CryptoApiService } from '../../services/crypto-api.service';
+import { HeaderComponent } from '../core/header/header.component';
+import { CryptoApiService } from '../services/crypto-api.service';
+import { SparklineChartComponent } from './sparkline-chart/sparkline-chart.component';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
   standalone: true,
-  imports: [CommonModule, HeaderComponent],
+  imports: [CommonModule, HeaderComponent, SparklineChartComponent],
 })
 export class DashboardComponent implements OnInit {
   private readonly cryptoApiService = inject(CryptoApiService);
