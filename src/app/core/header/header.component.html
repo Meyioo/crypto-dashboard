@@ -3,4 +3,7 @@
     <img src="brand_white.png" alt="Brand Logo" class="h-10" />
     <span class="ml-2 font-medium">Crypto Dashboard</span>
   </div>
+  <div *ngIf="cryptoDataUpdated$ | async" class="updated-indicator">
+    Updated!
+  </div>
 </header>

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, switchMap, timer } from 'rxjs';
 import { CoinData } from './crypto-api.model';
 
 @Injectable({
@@ -20,13 +20,34 @@ export class CryptoApiService {
     sparkline: 'false',
   };
 
+  private readonly cryptoDataStore = new BehaviorSubject<CoinData[]>([]);
+  public readonly cryptoData$ = this.cryptoDataStore.asObservable();
+
+  private readonly cryptoDataUpdated = new BehaviorSubject<boolean>(false);
+  public readonly cryptoDataUpdated$ = this.cryptoDataUpdated.asObservable();
+
+  constructor() {
+    this.cryptoData$.subscribe(() => {
+      this.cryptoDataUpdated.next(true);
+      setTimeout(() => this.cryptoDataUpdated.next(false), 3000);
+    });
+  }
+
+  public updateCryptoData(): void {
+    this.getCryptoData().subscribe((data) => this.cryptoDataStore.next(data));
+  }
+
   public getCryptoData(): Observable<CoinData[]> {
-    return this.httpClient.get<CoinData[]>(
-      'https://api.coingecko.com/api/v3/coins/markets',
-      {
-        params: this.params,
-        headers: this.headers,
-      }
+    return timer(0, 200000).pipe(
+      switchMap(() =>
+        this.httpClient.get<CoinData[]>(
+          'https://api.coingecko.com/api/v3/coins/markets',
+          {
+            params: this.params,
+            headers: this.headers,
+          }
+        )
+      )
     );
   }
 }

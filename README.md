@@ -30,19 +30,19 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 
 ### UI and UX
 
-- [ ] Create a **responsive layout**.
-- [ ] Add a **visual indicator** for auto-refresh (page stays interactive).
+- [x] ~~Create a **responsive layout**.~~
+- [x] ~~Add a **visual indicator** for auto-refresh (page stays interactive).~~
 
 ### URL State Sharing
 
-- [x] Persist **sort state in the URL**:
+- [x] ~~Persist **sort state in the URL**:~~
 
-  - [x] Survives page refresh.
-  - [x] Can be shared via URL.
+  - [x] ~~Survives page refresh.~~
+  - [x] ~~Can be shared via URL.~~
 
 - [ ] Implement a **coin detail view**:
-  - [ ] Navigable via URL.
-  - [ ] URL reflects selected coin.
+  - [x] ~~Navigable via URL.~~
+  - [ ] ~~URL reflects selected coin.~~
 
 ### Deployment
 
@@ -50,16 +50,16 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 
 ## 🔐 Authentication (Bonus)
 
-- [ ] Implement **authentication** with a web-friendly method:
+- [x] ~~Implement **authentication** with a web-friendly method:~~
 
   - [x] ~~Login screen.~~
-  - [ ] ~~Protect content from unauthorized access.~~
-  - [ ] No user database required.
-  - [ ] Allow a single valid user or simple login logic.
+  - [x] ~~Protect content from unauthorized access.~~
+  - [x] ~~No user database required.~~
+  - [x] ~~Allow a single valid user or simple login logic.~~
 
-- [ ] Store **login session**:
-  - [ ] Persist across visits.
-  - [ ] Allow expiration without auto-renewal.
+- [x] ~~Store **login session**:~~
+  - [x] ~~Persist across visits.~~
+  - [x] ~~Allow expiration without auto-renewal.~~
 
 # Development server
 

@@ -1,32 +1,58 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class AuthService {
-  public isAuthenticated = false;
+  private readonly storageKey = 'auth_token';
+  private readonly validPassword = 'a';
+  private readonly expirationMinutes = 60;
+  private readonly router = inject(Router);
 
-  constructor() {}
+  private readonly logoutSubject = new BehaviorSubject<boolean>(false);
+  public logout$ = this.logoutSubject.asObservable();
 
-  login(credentials: { email: string; password: string }) {
-    if (!credentials.email || !credentials.password) {
-      console.error('Invalid credentials');
-      return;
-    }
-
-    const envEmail = import.meta.env.NG_APP_LOGIN_EMAIL;
-    const envPassword = import.meta.env.NG_APP_LOGIN_PASSWORD;
-
-    if (
-      credentials.email !== envEmail ||
-      credentials.password !== envPassword
-    ) {
-      console.error('Authentication failed: Invalid email or password');
-      return;
-    }
-
-    this.isAuthenticated = true;
+  constructor() {
+    this.checkExpiration();
   }
 
-  logout() {}
+  login(password: string): boolean {
+    if (password === this.validPassword) {
+      const expires = new Date().getTime() + this.expirationMinutes * 1000;
+      localStorage.setItem(this.storageKey, expires.toString());
+      return true;
+    }
+    return false;
+  }
+
+  isLoggedIn(): boolean {
+    const expiry = localStorage.getItem(this.storageKey);
+    if (!expiry) {
+      return false;
+    }
+    return new Date().getTime() < +expiry;
+  }
+
+  private checkExpiration(): void {
+    const expiry = localStorage.getItem(this.storageKey);
+    if (expiry) {
+      this.scheduleAutoLogout(+expiry);
+    }
+  }
+
+  private scheduleAutoLogout(expiry: number): void {
+    const now = new Date().getTime();
+    const timeout = expiry - now;
+    if (timeout > 0) {
+      setTimeout(() => this.logout(), timeout);
+    } else {
+      this.logout();
+    }
+  }
+
+  logout(): void {
+    localStorage.removeItem(this.storageKey);
+    this.router.navigate(['/login']);
+    this.logoutSubject.next(true);
+  }
 }

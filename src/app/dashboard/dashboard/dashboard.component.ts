@@ -17,13 +17,15 @@ export class DashboardComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
 
-  public cryptoData$ = this.cryptoApiService.getCryptoData();
+  public cryptoData$ = this.cryptoApiService.cryptoData$;
 
   public isNameAscending = true;
   public isPriceAscending = true;
   public is24HourChangeAscending = true;
 
   ngOnInit(): void {
+    this.cryptoApiService.updateCryptoData();
+
     this.route.queryParams.subscribe((params) => {
       const sortBy = params['sortBy'];
       const order = params['order'];
@@ -105,5 +107,9 @@ export class DashboardComponent implements OnInit {
       },
       queryParamsHandling: 'merge',
     });
+  }
+
+  goToCoinDetails(id: string): void {
+    this.router.navigate(['/coin', id]);
   }
 }

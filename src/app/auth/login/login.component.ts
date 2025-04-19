@@ -5,6 +5,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -17,15 +18,19 @@ import { AuthService } from '../../services/auth.service';
 export class LoginComponent {
   private readonly fb = inject(FormBuilder);
   private readonly authService = inject(AuthService);
+  private readonly router = inject(Router);
+
+  public loginFailed = false;
 
   loginForm = this.fb.nonNullable.group({
-    email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required]],
   });
 
   onSubmit() {
-    this.authService.login(
-      this.loginForm.getRawValue() as { email: string; password: string }
-    );
+    if (this.authService.login(this.loginForm.value.password!)) {
+      this.router.navigate(['/dashboard']);
+    } else {
+      this.loginFailed = true;
+    }
   }
 }
