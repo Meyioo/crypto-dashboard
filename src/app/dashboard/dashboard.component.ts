@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs';
 import { CoinData } from '../services/crypto-api.model';
 import { CryptoApiService } from '../services/crypto-api.service';
-import { SparklineChartComponent } from './sparkline-chart/sparkline-chart.component';
+import { SparklineChartComponent } from '../shared/sparkline-chart/sparkline-chart.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -64,6 +64,7 @@ export class DashboardComponent implements OnInit {
     if (updateUrl) {
       this.updateQueryParams('name', this.isNameAscending);
     }
+
     this.isNameAscending = !this.isNameAscending;
   }
 

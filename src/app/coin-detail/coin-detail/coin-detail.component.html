@@ -3,11 +3,6 @@
     <div class="bg-white shadow-md rounded-lg p-6">
       <!-- Coin Header -->
       <div class="flex items-center space-x-4">
-        <img
-          src="https://via.placeholder.com/50"
-          alt="Coin Image"
-          class="w-12 h-12 rounded-full"
-        />
         <div>
           <h1 class="text-2xl font-bold">
             {{ coin.name }} ({{ coin.symbol.toUpperCase() }})
@@ -18,7 +13,6 @@
         </div>
       </div>
 
-      <!-- Coin Stats -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
         <div class="p-4 bg-gray-100 rounded-lg">
           <p class="text-sm text-gray-500">Current Price</p>
@@ -56,9 +50,9 @@
       <div class="mt-6">
         <h2 class="text-lg font-bold mb-2">7-Day Price Trend</h2>
         <div class="bg-gray-100 rounded-lg p-4">
-          <app-sparkline-chart
+          <app-line-chart
             [sparklineData]="coin.sparkline_in_7d.price"
-          ></app-sparkline-chart>
+          ></app-line-chart>
         </div>
       </div>
     </div>

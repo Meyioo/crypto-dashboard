@@ -1,7 +1,9 @@
 <header class="bg-blue-500 text-white p-2.5 flex items-center">
   <div class="flex-1 flex items-center">
-    <img src="brand_white.png" alt="Brand Logo" class="h-10" />
-    <span class="ml-2 font-medium">Crypto Dashboard</span>
+    <a routerLink="/" class="flex items-center">
+      <img src="brand_white.png" alt="Brand Logo" class="h-10" />
+      <span class="ml-2 font-medium">Crypto Dashboard</span>
+    </a>
   </div>
   <div *ngIf="cryptoDataUpdated$ | async" class="updated-indicator">
     Updated!

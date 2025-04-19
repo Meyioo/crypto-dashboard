@@ -32,8 +32,6 @@ export class SparklineChartComponent implements OnInit {
 
   public chartOptions!: Partial<ChartOptions>;
 
-  constructor() {}
-
   ngOnInit(): void {
     this.chartOptions = {
       tooltip: {
