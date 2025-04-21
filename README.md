@@ -19,7 +19,7 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
   - [x] ~~Name~~
   - [x] ~~24h Change~~
 
-- [ ] _(Optional)_ Display a **chart (sparkline)** for each coin.
+- [x] ~~_(Optional)_ Display a **chart (sparkline)** for each coin.~~
 
 ## 💡 Bonus Features
 

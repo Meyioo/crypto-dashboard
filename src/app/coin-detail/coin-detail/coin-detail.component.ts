@@ -1,7 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
+import { Observable, of } from 'rxjs';
+import { CoinMetadata } from '../../services/crypto-api.model';
 import { CryptoApiService } from '../../services/crypto-api.service';
 import { LineChartComponent } from '../../shared/line-chart/line-chart.component';
+
 @Component({
   selector: 'app-coin-detail',
   templateUrl: './coin-detail.component.html',
@@ -10,10 +13,12 @@ import { LineChartComponent } from '../../shared/line-chart/line-chart.component
   providers: [],
   standalone: true,
 })
-export class CoinDetailComponent implements OnInit {
+export class CoinDetailComponent {
   public readonly cryptoApiService = inject(CryptoApiService);
 
-  constructor() {}
+  public coinMetadata$: Observable<CoinMetadata> = of({} as CoinMetadata);
 
-  ngOnInit() {}
+  @Input() set id(id: string) {
+    this.coinMetadata$ = this.cryptoApiService.getCoinMetadata(id);
+  }
 }

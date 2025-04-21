@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, switchMap, timer } from 'rxjs';
-import { CoinData } from './crypto-api.model';
+import { CoinData, CoinMetadata } from './crypto-api.model';
 
 @Injectable({
   providedIn: 'root',
@@ -53,6 +53,25 @@ export class CryptoApiService {
           },
         ),
       ),
+    );
+  }
+
+  public getCoinMetadata(id: string): Observable<CoinMetadata> {
+    return this.httpClient.get<CoinMetadata>(
+      `https://api.coingecko.com/api/v3/coins/${id}`,
+      {
+        headers: {
+          'x-cg-demo-api-key': this.apiKey,
+        },
+        params: {
+          localization: false,
+          tickers: false,
+          market_data: false,
+          community_data: false,
+          developer_data: false,
+          sparkline: false,
+        },
+      },
     );
   }
 
