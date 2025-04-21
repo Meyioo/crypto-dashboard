@@ -10,7 +10,6 @@ import { LineChartComponent } from '../../shared/line-chart/line-chart.component
   templateUrl: './coin-detail.component.html',
   styleUrls: ['./coin-detail.component.css'],
   imports: [CommonModule, LineChartComponent],
-  providers: [],
   standalone: true,
 })
 export class CoinDetailComponent {
