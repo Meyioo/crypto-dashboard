@@ -1,4 +1,4 @@
-export interface CoinData {
+export interface CoinTableData {
   id: string;
   symbol: string;
   name: string;
@@ -127,6 +127,9 @@ export interface MarketData {
   max_supply: number | null;
   circulating_supply: number;
   last_updated: string;
+  sparkline_7d: {
+    price: number[];
+  };
 }
 
 export interface CommunityData {

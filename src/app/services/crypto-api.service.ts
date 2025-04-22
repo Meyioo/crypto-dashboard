@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, switchMap, timer } from 'rxjs';
-import { CoinData, CoinMetadata } from './crypto-api.model';
+import { CoinMetadata, CoinTableData } from './crypto-api.model';
 
 @Injectable({
   providedIn: 'root',
@@ -13,13 +13,13 @@ export class CryptoApiService {
     'x-cg-demo-api-key': this.apiKey,
   };
 
-  private readonly cryptoDataStore = new BehaviorSubject<CoinData[]>([]);
+  private readonly cryptoDataStore = new BehaviorSubject<CoinTableData[]>([]);
   public readonly cryptoData$ = this.cryptoDataStore.asObservable();
 
   private readonly cryptoDataUpdated = new BehaviorSubject<boolean>(false);
   public readonly cryptoDataUpdated$ = this.cryptoDataUpdated.asObservable();
 
-  private readonly selectedCoinStore = new BehaviorSubject<CoinData | null>(
+  private readonly selectedCoinStore = new BehaviorSubject<CoinMetadata | null>(
     null,
   );
   public readonly selectedCoin$ = this.selectedCoinStore.asObservable();
@@ -58,10 +58,10 @@ export class CryptoApiService {
     this.getCryptoData().subscribe((data) => this.cryptoDataStore.next(data));
   }
 
-  public getCryptoData(): Observable<CoinData[]> {
+  public getCryptoData(): Observable<CoinTableData[]> {
     return timer(0, 20000).pipe(
       switchMap(() =>
-        this.httpClient.get<CoinData[]>(
+        this.httpClient.get<CoinTableData[]>(
           'https://api.coingecko.com/api/v3/coins/markets',
           {
             headers: this.headers,
@@ -73,14 +73,12 @@ export class CryptoApiService {
           },
         ),
       ),
-      switchMap(
-        (data) =>
-          new Observable<CoinData[]>((observer) => {
-            const sortedData = data.sort((a, b) => b.market_cap - a.market_cap);
-            observer.next(sortedData);
-            observer.complete();
-          }),
-      ),
+    );
+  }
+
+  public updateCryptoMetadata(id: string): void {
+    this.getCoinMetadata(id).subscribe((data) =>
+      this.selectedCoinStore.next(data),
     );
   }
 
@@ -94,16 +92,16 @@ export class CryptoApiService {
         params: {
           localization: false,
           tickers: false,
-          market_data: false,
+          market_data: true,
           community_data: false,
           developer_data: false,
-          sparkline: false,
+          sparkline: true,
         },
       },
     );
   }
 
-  public selectCoin(coin: CoinData): void {
+  public selectCoin(coin: CoinMetadata): void {
     this.selectedCoinStore.next(coin);
   }
 

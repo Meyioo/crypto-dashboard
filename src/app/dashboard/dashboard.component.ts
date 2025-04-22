@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CoinData } from '../services/crypto-api.model';
+import { CoinTableData } from '../services/crypto-api.model';
 import { CryptoApiService } from '../services/crypto-api.service';
 import { SparklineChartComponent } from '../shared/sparkline-chart/sparkline-chart.component';
 
@@ -17,7 +17,7 @@ export class DashboardComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
 
-  public cryptoData$ = this.cryptoApiService.cryptoData$;
+  public readonly cryptoData$ = this.cryptoApiService.cryptoData$;
 
   public isNameAscending = true;
   public isPriceAscending = true;
@@ -82,6 +82,10 @@ export class DashboardComponent implements OnInit {
     this.is24HourChangeAscending = !this.is24HourChangeAscending;
   }
 
+  public goToCoinDetails(coin: CoinTableData): void {
+    this.router.navigate(['/coin', coin.id]);
+  }
+
   private updateQueryParams(sortBy: string, isAscending: boolean): void {
     this.router.navigate([], {
       relativeTo: this.route,
@@ -91,10 +95,5 @@ export class DashboardComponent implements OnInit {
       },
       queryParamsHandling: 'merge',
     });
-  }
-
-  goToCoinDetails(coin: CoinData): void {
-    this.cryptoApiService.selectCoin(coin);
-    this.router.navigate(['/coin', coin.id]);
   }
 }
