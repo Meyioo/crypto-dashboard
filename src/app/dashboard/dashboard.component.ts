@@ -25,61 +25,42 @@ export class DashboardComponent implements OnInit {
 
   public ngOnInit(): void {
     this.cryptoApiService.updateCoinTableData();
-
-    this.route.queryParams.subscribe((params) => {
-      const sortBy = params['sortBy'];
-      const order = params['order'];
-
-      if (sortBy && order) {
-        const isAscending = order === 'asc';
-        switch (sortBy) {
-          case 'name':
-            this.isNameAscending = isAscending;
-            this.sortByName(false);
-            break;
-          case 'price':
-            this.isPriceAscending = isAscending;
-            this.sortByPrice(false);
-            break;
-          case '24hChange':
-            this.is24HourChangeAscending = isAscending;
-            this.sortBy24hChange(false);
-            break;
-        }
+    const queryParams = this.route.snapshot.queryParams;
+    if (queryParams['sortBy'] && queryParams['order']) {
+      const isAscending = queryParams['order'] === 'asc';
+      switch (queryParams['sortBy']) {
+        case 'name':
+          this.isNameAscending = isAscending;
+          break;
+        case 'current_price':
+          this.isPriceAscending = isAscending;
+          break;
+        case 'price_change_24h':
+          this.is24HourChangeAscending = isAscending;
+          break;
       }
-    });
+    }
   }
 
-  public sortByName(updateUrl = true): void {
-    this.cryptoApiService.sortCryptoData('name', this.isNameAscending);
-    if (updateUrl) {
-      this.updateQueryParams('name', this.isNameAscending);
-    }
+  public sortByName(): void {
     this.isNameAscending = !this.isNameAscending;
+    this.cryptoApiService.sortCryptoData('name', this.isNameAscending);
+    this.updateQueryParams('name', this.isNameAscending);
   }
 
-  public sortByPrice(updateUrl = true): void {
-    this.cryptoApiService.sortCryptoData(
-      'current_price',
-      this.isPriceAscending,
-    );
-
-    if (updateUrl) {
-      this.updateQueryParams('price', this.isPriceAscending);
-    }
+  public sortByPrice(): void {
     this.isPriceAscending = !this.isPriceAscending;
+    this.cryptoApiService.sortCryptoData('current_price', this.isNameAscending);
+    this.updateQueryParams('current_price', this.isPriceAscending);
   }
 
-  public sortBy24hChange(updateUrl = true): void {
+  public sortBy24hChange(): void {
+    this.is24HourChangeAscending = !this.is24HourChangeAscending;
     this.cryptoApiService.sortCryptoData(
       'price_change_24h',
-      this.is24HourChangeAscending,
+      this.isNameAscending,
     );
-
-    if (updateUrl) {
-      this.updateQueryParams('24hChange', this.is24HourChangeAscending);
-    }
-    this.is24HourChangeAscending = !this.is24HourChangeAscending;
+    this.updateQueryParams('price_change_24h', this.is24HourChangeAscending);
   }
 
   public goToCoinDetails(coin: CoinTableData): void {

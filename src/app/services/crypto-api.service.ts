@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, Observable, switchMap, timer } from 'rxjs';
 import { CoinMetadata, CoinTableData } from './crypto-api.model';
 
@@ -7,6 +8,7 @@ import { CoinMetadata, CoinTableData } from './crypto-api.model';
   providedIn: 'root',
 })
 export class CryptoApiService {
+  private readonly route = inject(ActivatedRoute);
   private readonly apiKey = import.meta.env.NG_APP_COINGECKO_API_KEY;
   private readonly httpClient = inject(HttpClient);
   private readonly headers = {
@@ -76,6 +78,21 @@ export class CryptoApiService {
           },
         ),
       ),
+      switchMap((data) => {
+        this.cryptoDataStore.next(data);
+        return this.route.queryParams;
+      }),
+      switchMap((params) => {
+        const sortBy = params['sortBy'] as
+          | 'name'
+          | 'current_price'
+          | 'price_change_24h';
+        const ascending = params['order'] === 'asc';
+        if (sortBy) {
+          this.sortCryptoData(sortBy, ascending);
+        }
+        return this.cryptoData$;
+      }),
     );
   }
 
