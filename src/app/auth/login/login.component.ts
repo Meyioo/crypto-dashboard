@@ -21,13 +21,18 @@ export class LoginComponent {
   private readonly router = inject(Router);
 
   public loginFailed = false;
-
-  loginForm = this.fb.nonNullable.group({
+  public readonly loginForm = this.fb.nonNullable.group({
+    email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required]],
   });
 
-  onSubmit() {
-    if (this.authService.login(this.loginForm.value.password!)) {
+  public onSubmit(): void {
+    const validCredentials = this.authService.login(
+      this.loginForm.value.email!,
+      this.loginForm.value.password!,
+    );
+
+    if (validCredentials) {
       this.router.navigate(['/dashboard']);
     } else {
       this.loginFailed = true;

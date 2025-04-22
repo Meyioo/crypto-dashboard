@@ -7,7 +7,7 @@ export class AuthGuard implements CanActivate {
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
 
-  canActivate(): boolean {
+  public canActivate(): boolean {
     if (this.authService.isLoggedIn()) {
       return true;
     }

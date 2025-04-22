@@ -12,13 +12,6 @@ export class CryptoApiService {
   private readonly headers = {
     'x-cg-demo-api-key': this.apiKey,
   };
-  private readonly params = {
-    vs_currency: 'usd',
-    order: 'market_cap_desc',
-    per_page: 20,
-    page: 1,
-    sparkline: true,
-  };
 
   private readonly cryptoDataStore = new BehaviorSubject<CoinData[]>([]);
   public readonly cryptoData$ = this.cryptoDataStore.asObservable();
@@ -30,6 +23,24 @@ export class CryptoApiService {
     null,
   );
   public readonly selectedCoin$ = this.selectedCoinStore.asObservable();
+
+  public sortCryptoData(criteria: string, ascending: boolean): void {
+    const currentData = this.cryptoDataStore.getValue();
+    const sortedData = [...currentData].sort((a, b) => {
+      if (criteria === 'name') {
+        return ascending
+          ? a.name.localeCompare(b.name)
+          : b.name.localeCompare(a.name);
+      } else if (criteria === 'current_price') {
+        return ascending
+          ? a.current_price - b.current_price
+          : b.current_price - a.current_price;
+      }
+
+      return 0;
+    });
+    this.cryptoDataStore.next(sortedData);
+  }
 
   constructor() {
     this.cryptoData$.subscribe(() => {
@@ -48,10 +59,22 @@ export class CryptoApiService {
         this.httpClient.get<CoinData[]>(
           'https://api.coingecko.com/api/v3/coins/markets',
           {
-            params: this.params,
             headers: this.headers,
+            params: {
+              vs_currency: 'usd',
+              per_page: 20,
+              sparkline: true,
+            },
           },
         ),
+      ),
+      switchMap(
+        (data) =>
+          new Observable<CoinData[]>((observer) => {
+            const sortedData = data.sort((a, b) => b.market_cap - a.market_cap);
+            observer.next(sortedData);
+            observer.complete();
+          }),
       ),
     );
   }
@@ -61,7 +84,7 @@ export class CryptoApiService {
       `https://api.coingecko.com/api/v3/coins/${id}`,
       {
         headers: {
-          'x-cg-demo-api-key': this.apiKey,
+          ...this.headers,
         },
         params: {
           localization: false,

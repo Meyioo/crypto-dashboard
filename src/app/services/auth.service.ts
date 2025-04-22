@@ -5,7 +5,8 @@ import { BehaviorSubject } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private readonly storageKey = 'auth_token';
-  private readonly validPassword = 'a';
+  private readonly validEmail = import.meta.env.NG_APP_LOGIN_EMAIL;
+  private readonly validPassword = import.meta.env.NG_APP_LOGIN_PASSWORD;
   private readonly expirationMinutes = 60;
   private readonly router = inject(Router);
 
@@ -16,8 +17,8 @@ export class AuthService {
     this.checkExpiration();
   }
 
-  login(password: string): boolean {
-    if (password === this.validPassword) {
+  public login(email: string, password: string): boolean {
+    if (email === this.validEmail && password === this.validPassword) {
       const expires = new Date().getTime() + this.expirationMinutes * 100000;
       localStorage.setItem(this.storageKey, expires.toString());
       return true;
@@ -25,12 +26,18 @@ export class AuthService {
     return false;
   }
 
-  isLoggedIn(): boolean {
+  public isLoggedIn(): boolean {
     const expiry = localStorage.getItem(this.storageKey);
     if (!expiry) {
       return false;
     }
     return new Date().getTime() < +expiry;
+  }
+
+  public logout(): void {
+    localStorage.removeItem(this.storageKey);
+    this.router.navigate(['/login']);
+    this.logoutSubject.next(true);
   }
 
   private checkExpiration(): void {
@@ -48,11 +55,5 @@ export class AuthService {
     } else {
       this.logout();
     }
-  }
-
-  logout(): void {
-    localStorage.removeItem(this.storageKey);
-    this.router.navigate(['/login']);
-    this.logoutSubject.next(true);
   }
 }

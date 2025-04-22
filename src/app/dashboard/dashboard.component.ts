@@ -14,7 +14,7 @@ import { SparklineChartComponent } from '../shared/sparkline-chart/sparkline-cha
   imports: [CommonModule, SparklineChartComponent],
 })
 export class DashboardComponent implements OnInit {
-  private readonly cryptoApiService = inject(CryptoApiService);
+  public readonly cryptoApiService = inject(CryptoApiService);
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
 
@@ -24,7 +24,7 @@ export class DashboardComponent implements OnInit {
   public isPriceAscending = true;
   public is24HourChangeAscending = true;
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.cryptoApiService.updateCryptoData();
 
     this.route.queryParams.subscribe((params) => {
@@ -52,32 +52,19 @@ export class DashboardComponent implements OnInit {
   }
 
   public sortByName(updateUrl = true): void {
-    this.cryptoData$ = this.cryptoData$.pipe(
-      map((data) => {
-        return data.sort((a, b) =>
-          this.isNameAscending
-            ? a.name.localeCompare(b.name)
-            : b.name.localeCompare(a.name),
-        );
-      }),
-    );
+    this.cryptoApiService.sortCryptoData('name', this.isNameAscending);
     if (updateUrl) {
       this.updateQueryParams('name', this.isNameAscending);
     }
-
     this.isNameAscending = !this.isNameAscending;
   }
 
   public sortByPrice(updateUrl = true): void {
-    this.cryptoData$ = this.cryptoData$.pipe(
-      map((data) => {
-        return data.sort((a, b) =>
-          this.isPriceAscending
-            ? a.current_price - b.current_price
-            : b.current_price - a.current_price,
-        );
-      }),
+    this.cryptoApiService.sortCryptoData(
+      'current_price',
+      this.isPriceAscending,
     );
+
     if (updateUrl) {
       this.updateQueryParams('price', this.isPriceAscending);
     }

@@ -1,8 +1,15 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
-import { NgApexchartsModule } from 'ng-apexcharts';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
+import { ChartComponent, NgApexchartsModule } from 'ng-apexcharts';
 
-export type ChartOptions = {
+export interface ChartOptions {
   series: ApexAxisChartSeries;
   chart: ApexChart;
   xaxis: ApexXAxis;
@@ -18,7 +25,7 @@ export type ChartOptions = {
   legend: ApexLegend;
   fill: ApexFill;
   tooltip: ApexTooltip;
-};
+}
 
 @Component({
   selector: 'app-sparkline-chart',
@@ -27,12 +34,13 @@ export type ChartOptions = {
   imports: [CommonModule, NgApexchartsModule],
   standalone: true,
 })
-export class SparklineChartComponent implements OnInit {
-  @Input() sparklineData: number[] = [];
+export class SparklineChartComponent implements OnInit, OnChanges {
+  @ViewChild('chart') private readonly chart?: ChartComponent;
+  @Input() public sparklineData: number[] = [];
 
   public chartOptions!: Partial<ChartOptions>;
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.chartOptions = {
       tooltip: {
         enabled: false,
@@ -60,5 +68,16 @@ export class SparklineChartComponent implements OnInit {
         },
       ],
     };
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['sparklineData']) {
+      this.chart?.updateSeries([
+        {
+          name: 'chart-line-sparkline',
+          data: this.sparklineData,
+        },
+      ]);
+    }
   }
 }

@@ -31,6 +31,10 @@ export interface CoinData {
   };
 }
 
+export interface CoinDataQueryParams {
+  order: string;
+}
+
 export interface CoinMetadata {
   id: string;
   symbol: string;
