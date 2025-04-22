@@ -19,7 +19,7 @@ export class AuthService {
 
   public login(email: string, password: string): boolean {
     if (email === this.validEmail && password === this.validPassword) {
-      const expires = new Date().getTime() + this.expirationMinutes * 1000000;
+      const expires = new Date().getTime() + this.expirationMinutes * 20000;
       localStorage.setItem(this.storageKey, expires.toString());
       return true;
     }
