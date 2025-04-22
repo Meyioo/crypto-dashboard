@@ -50,7 +50,7 @@ export class CryptoApiService {
   constructor() {
     this.cryptoData$.subscribe(() => {
       this.cryptoDataUpdated.next(true);
-      setTimeout(() => this.cryptoDataUpdated.next(false), 3000);
+      setTimeout(() => this.cryptoDataUpdated.next(false));
     });
   }
 
@@ -71,6 +71,7 @@ export class CryptoApiService {
               vs_currency: 'usd',
               per_page: 20,
               sparkline: true,
+              include_tokens: 'top',
             },
           },
         ),

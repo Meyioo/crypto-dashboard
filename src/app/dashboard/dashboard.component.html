@@ -65,7 +65,13 @@
           >
             {{ coin.price_change_24h | currency }}
           </td>
-          <td class="px-6 py-4 whitespace-nowrap">{{ coin.symbol }}</td>
+          <td class="px-6 py-4 whitespace-nowrap">
+            <img
+              [src]="coin.image"
+              alt="{{ coin.name }}"
+              class="w-6 h-6 inline-block mr-2"
+            />
+          </td>
           <td class="px-6 py-4 whitespace-nowrap">
             <app-sparkline-chart
               height="35"
