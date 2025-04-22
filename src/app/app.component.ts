@@ -3,10 +3,16 @@ import { Component, inject, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { HeaderComponent } from './core/header/header.component';
 import { AuthService } from './services/auth.service';
+import { OfflineBannerComponent } from './shared/offline-banner/offline-banner.component';
 
 @Component({
   selector: 'app-root',
-  imports: [CommonModule, RouterModule, HeaderComponent],
+  imports: [
+    CommonModule,
+    RouterModule,
+    HeaderComponent,
+    OfflineBannerComponent,
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })

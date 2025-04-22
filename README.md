@@ -25,7 +25,7 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 
 ### Error and Connection Handling
 
-- [ ] Show an **offline notice** when network connection is interrupted.
+- [x] ~~Show an **offline notice** when network connection is interrupted.~~
 - [ ] Handle **API errors gracefully** and notify the user.
 
 ### UI and UX
