@@ -24,7 +24,10 @@ export class CryptoApiService {
   );
   public readonly selectedCoin$ = this.selectedCoinStore.asObservable();
 
-  public sortCryptoData(criteria: string, ascending: boolean): void {
+  public sortCryptoData(
+    criteria: 'name' | 'current_price' | 'price_change_24h',
+    ascending: boolean,
+  ): void {
     const currentData = this.cryptoDataStore.getValue();
     const sortedData = [...currentData].sort((a, b) => {
       if (criteria === 'name') {
@@ -35,9 +38,11 @@ export class CryptoApiService {
         return ascending
           ? a.current_price - b.current_price
           : b.current_price - a.current_price;
+      } else {
+        return ascending
+          ? a.price_change_24h - b.price_change_24h
+          : b.price_change_24h - a.price_change_24h;
       }
-
-      return 0;
     });
     this.cryptoDataStore.next(sortedData);
   }

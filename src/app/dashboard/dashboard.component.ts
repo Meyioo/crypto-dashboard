@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map } from 'rxjs';
 import { CoinData } from '../services/crypto-api.model';
 import { CryptoApiService } from '../services/crypto-api.service';
 import { SparklineChartComponent } from '../shared/sparkline-chart/sparkline-chart.component';
@@ -72,15 +71,11 @@ export class DashboardComponent implements OnInit {
   }
 
   public sortBy24hChange(updateUrl = true): void {
-    this.cryptoData$ = this.cryptoData$.pipe(
-      map((data) => {
-        return data.sort((a, b) =>
-          this.is24HourChangeAscending
-            ? a.price_change_percentage_24h - b.price_change_percentage_24h
-            : b.price_change_percentage_24h - a.price_change_percentage_24h,
-        );
-      }),
+    this.cryptoApiService.sortCryptoData(
+      'price_change_24h',
+      this.is24HourChangeAscending,
     );
+
     if (updateUrl) {
       this.updateQueryParams('24hChange', this.is24HourChangeAscending);
     }
