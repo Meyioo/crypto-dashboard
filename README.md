@@ -40,9 +40,9 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
   - [x] ~~Survives page refresh.~~
   - [x] ~~Can be shared via URL.~~
 
-- [ ] Implement a **coin detail view**:
+- [x] ~~Implement a **coin detail view**:~~
   - [x] ~~Navigable via URL.~~
-  - [ ] ~~URL reflects selected coin.~~
+  - [x] ~~URL reflects selected coin.~~
 
 ### Deployment
 

@@ -37,13 +37,16 @@ export interface ChartOptions {
 export class SparklineChartComponent implements OnInit, OnChanges {
   @ViewChild('chart') private readonly chart?: ChartComponent;
   @Input() public sparklineData: number[] = [];
+  @Input() public height = '';
+  @Input() public width = '';
+  @Input() public tooltipEnabled = false;
 
   public chartOptions!: Partial<ChartOptions>;
 
   public ngOnInit(): void {
     this.chartOptions = {
       tooltip: {
-        enabled: false,
+        enabled: this.tooltipEnabled,
         fixed: {
           enabled: false,
         },

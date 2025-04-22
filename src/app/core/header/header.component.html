@@ -1,11 +1,33 @@
-<header class="bg-blue-500 text-white p-2.5 flex items-center">
-  <div class="flex-1 flex items-center">
+<header class="bg-blue-500 text-white p-2.5 flex items-center justify-between">
+  <div class="flex items-center">
     <a routerLink="/" class="flex items-center">
       <img src="brand_white.png" alt="Brand Logo" class="h-10" />
       <span class="ml-2 font-medium">Crypto Dashboard</span>
     </a>
   </div>
-  <div *ngIf="cryptoDataUpdated$ | async" class="updated-indicator">
-    Updated!
+  @if (cryptoDataUpdated$ | async) {
+    <div class="updated-indicator">Updated!</div>
+  }
+  <div>
+    <button
+      (click)="logout()"
+      class="flex items-center bg-red-500 hover:bg-red-600 text-white font-medium py-1 px-3 rounded"
+    >
+      <span>Logout</span>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-5 w-5 ml-2"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M17 16l4-4m0 0l-4-4m4 4H7"
+        />
+      </svg>
+    </button>
   </div>
 </header>

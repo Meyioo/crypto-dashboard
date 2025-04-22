@@ -24,7 +24,7 @@ export class DashboardComponent implements OnInit {
   public is24HourChangeAscending = true;
 
   public ngOnInit(): void {
-    this.cryptoApiService.updateCryptoData();
+    this.cryptoApiService.updateCoinTableData();
 
     this.route.queryParams.subscribe((params) => {
       const sortBy = params['sortBy'];

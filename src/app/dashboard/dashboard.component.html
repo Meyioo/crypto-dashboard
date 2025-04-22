@@ -68,6 +68,8 @@
           <td class="px-6 py-4 whitespace-nowrap">{{ coin.symbol }}</td>
           <td class="px-6 py-4 whitespace-nowrap">
             <app-sparkline-chart
+              height="35"
+              width="100"
               [sparklineData]="coin.sparkline_in_7d.price"
             ></app-sparkline-chart>
           </td>

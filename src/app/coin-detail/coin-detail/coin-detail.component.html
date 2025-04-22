@@ -76,9 +76,11 @@
       <div class="mt-6">
         <h2 class="text-lg font-bold mb-2">7-Day Price Trend</h2>
         <div class="bg-gray-100 rounded-lg p-4">
-          <app-line-chart
+          <app-sparkline-chart
+            height="200"
+            [tooltipEnabled]="true"
             [sparklineData]="coin.market_data.sparkline_7d.price"
-          ></app-line-chart>
+          ></app-sparkline-chart>
         </div>
       </div>
     </div>

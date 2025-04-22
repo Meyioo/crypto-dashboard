@@ -19,7 +19,7 @@ export class AuthService {
 
   public login(email: string, password: string): boolean {
     if (email === this.validEmail && password === this.validPassword) {
-      const expires = new Date().getTime() + this.expirationMinutes * 100000;
+      const expires = new Date().getTime() + this.expirationMinutes * 1000000;
       localStorage.setItem(this.storageKey, expires.toString());
       return true;
     }
@@ -37,7 +37,7 @@ export class AuthService {
   public logout(): void {
     localStorage.removeItem(this.storageKey);
     this.router.navigate(['/login']);
-    this.logoutSubject.next(true);
+    this.logoutSubject.next(false);
   }
 
   private checkExpiration(): void {

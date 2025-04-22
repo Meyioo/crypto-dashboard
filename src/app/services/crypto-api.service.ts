@@ -54,12 +54,14 @@ export class CryptoApiService {
     });
   }
 
-  public updateCryptoData(): void {
-    this.getCryptoData().subscribe((data) => this.cryptoDataStore.next(data));
+  public updateCoinTableData(): void {
+    this.getCoinTableData().subscribe((data) =>
+      this.cryptoDataStore.next(data),
+    );
   }
 
-  public getCryptoData(): Observable<CoinTableData[]> {
-    return timer(0, 20000).pipe(
+  public getCoinTableData(): Observable<CoinTableData[]> {
+    return timer(0, 10000).pipe(
       switchMap(() =>
         this.httpClient.get<CoinTableData[]>(
           'https://api.coingecko.com/api/v3/coins/markets',
@@ -83,21 +85,23 @@ export class CryptoApiService {
   }
 
   public getCoinMetadata(id: string): Observable<CoinMetadata> {
-    return this.httpClient.get<CoinMetadata>(
-      `https://api.coingecko.com/api/v3/coins/${id}`,
-      {
-        headers: {
-          ...this.headers,
-        },
-        params: {
-          localization: false,
-          tickers: false,
-          market_data: true,
-          community_data: false,
-          developer_data: false,
-          sparkline: true,
-        },
-      },
+    return timer(0, 10000).pipe(
+      switchMap(() =>
+        this.httpClient.get<CoinMetadata>(
+          `https://api.coingecko.com/api/v3/coins/${id}`,
+          {
+            headers: this.headers,
+            params: {
+              localization: false,
+              tickers: false,
+              market_data: true,
+              community_data: false,
+              developer_data: false,
+              sparkline: true,
+            },
+          },
+        ),
+      ),
     );
   }
 
